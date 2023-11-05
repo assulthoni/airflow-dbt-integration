@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: country
+      - name: city
+      - name: countrylanguage
