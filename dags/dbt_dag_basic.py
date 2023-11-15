@@ -1,20 +1,29 @@
+import os
 from datetime import datetime
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
+
+CURRENT_DIR = os.getcwd()
+DBT_DIR = CURRENT_DIR + '/dags/dbt/simple_data_modeling'
 
 dag = DAG(
     "dbt_dag_basic",
     start_date=datetime(2020, 12, 23),
     description="A sample Airflow DAG to invoke dbt runs using a BashOperator",
-    schedule_interval=None,
+    schedule_interval='@daily',
     catchup=False,
-    default_args={
-        "env": {
-            "DBT_USER": "{{ conn.postgres.login }}",
-            "DBT_ENV_SECRET_PASSWORD": "{{ conn.postgres.password }}",
-            "DBT_HOST": "{{ conn.postgres.host }}",
-            "DBT_SCHEMA": "{{ conn.postgres.schema }}",
-            "DBT_PORT": "{{ conn.postgres.port }}",
-        }
-    },
 )
+
+task_run = BashOperator(
+    dag=dag,
+    task_id="dbt_run",
+    bash_command=f"cd {DBT_DIR} && dbt run --profiles-dir ."
+)
+
+task_test = BashOperator(
+    dag=dag,
+    task_id="dbt_test",
+    bash_command=f"cd {DBT_DIR} && dbt run --profiles-dir ."
+)
+
+task_run >> task_test

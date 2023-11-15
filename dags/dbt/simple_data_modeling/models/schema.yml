@@ -1,0 +1,60 @@
+
+version: 2
+
+models:
+  - name: continent_metrics_model
+    description: "Table to count continent metrics"
+    columns:
+      - name: continent
+        description: "Continent of the world"
+        tests:
+          - unique
+          - not_null
+      - name: country_count
+        description: "Count of country in each continent"
+        tests:
+          - not_null
+      - name: total_area
+        description: "Total Area in each continent"
+        tests:
+          - not_null
+
+  - name: gov_continent_metrics_model
+    description: "Model for government model"
+    columns:
+      - name: governmentform
+        description: "Government form"
+        tests:
+          - not_null
+      - name: continent
+        description: "continent"
+        tests:
+          - not_null
+      - name: country_count
+        description: "count of country"
+        tests:
+          - not_null
+      - name: total_area
+        description: "total area"
+        tests:
+          - not_null
+      - name: total_population
+        description: "total population"
+        tests:
+          - not_null
+
+  - name: gov_metrics
+    description: "Model for government model"
+    columns:
+      - name: governmentform
+        description: "Government form"
+        tests:
+          - not_null
+      - name: ctd_continent
+        description: "count of continent"
+        tests:
+          - not_null
+      - name: total_population
+        description: "total population"
+        tests:
+          - not_null

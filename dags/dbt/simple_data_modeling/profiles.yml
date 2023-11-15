@@ -1,0 +1,24 @@
+simple_data_modeling:
+  outputs:
+
+    dev:
+      type: postgres
+      threads: 2
+      host: myPostgresDB
+      port: 5432
+      user: postgres
+      pass: postgres
+      dbname: postgres
+      schema: public
+
+    prod:
+      type: postgres
+      threads: 4
+      host: myPostgresDB
+      port: 5432
+      user: postgres
+      pass: postgres
+      dbname: postgres
+      schema: public
+
+  target: dev
